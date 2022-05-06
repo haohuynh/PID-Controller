@@ -11,7 +11,7 @@ class PID {
 public:
 
    /**
-   * TODO: Create the PID class
+   * Create the PID class
    **/
 
     /*

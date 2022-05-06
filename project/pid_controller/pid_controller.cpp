@@ -11,35 +11,51 @@
 
 using namespace std;
 
-PID::PID() {}
+PID::PID() {
+	_pid_errors = {};
+  	_delta_time = 1;
+}
 
 PID::~PID() {}
 
 void PID::Init(double Kpi, double Kii, double Kdi, double output_lim_maxi, double output_lim_mini) {
    /**
-   * TODO: Initialize PID coefficients (and errors, if needed)
-   **/
-  _
+    * Initialize PID coefficients (and errors, if needed)
+    */
+  
+  _pid_coeffs = {Kpi, Kii, Kdi};
+  _output_limits = {output_lim_mini, output_lim_maxi};
 }
 
 
 void PID::UpdateError(double cte) {
    /**
-   * TODO: Update PID errors based on cte.
-   **/
+    * Update PID errors based on cte.
+    */
+	_pid_errors[2] = (cte - _pid_errors[0]) / _delta_time;
+    _pid_errors[1] += cte;
+    _pid_errors[0] = cte;
 }
 
 double PID::TotalError() {
    /**
-   * TODO: Calculate and return the total error
+    * Calculate and return the total error
     * The code should return a value in the interval [output_lim_mini, output_lim_maxi]
-   */
-    double control;
+    */
+    double control = 0.0;
+  	
+  	for (int i = 0; i < 3; i++){
+    	control -= _pid_coeffs[i] * _pid_errors[i];
+    }
+  	control = (control < _output_limits[0]) ? _output_limits[0] ? control;
+  	control = (control > _output_limits[1]) ? _output_limits[1] ? control;
+  
     return control;
 }
 
 double PID::UpdateDeltaTime(double new_delta_time) {
    /**
-   * TODO: Update the delta time with new value
-   */
+    * Update the delta time with new value
+    */
+	_delta_time = new_delta_time;
 }
