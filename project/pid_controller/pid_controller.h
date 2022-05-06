@@ -17,19 +17,23 @@ public:
     /*
     * Errors
     */
-
+	double _pid_errors[3];
+  
     /*
     * Coefficients
     */
-
+	double _pid_coeffs[3];
+  
     /*
     * Output limits
     */
+  	double _output_limits[2];
   
     /*
     * Delta time
     */
-
+	double _delta_time;
+  
     /*
     * Constructor
     */
