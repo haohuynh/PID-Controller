@@ -12,7 +12,10 @@
 using namespace std;
 
 PID::PID() {
-	_pid_errors = {};
+	for (int i = 0; i < N; i++){
+    	_pid_errors[i] = 0;  
+    }
+    
   	_delta_time = 1;
 }
 
@@ -23,8 +26,11 @@ void PID::Init(double Kpi, double Kii, double Kdi, double output_lim_maxi, doubl
     * Initialize PID coefficients (and errors, if needed)
     */
   
-  _pid_coeffs = {Kpi, Kii, Kdi};
-  _output_limits = {output_lim_mini, output_lim_maxi};
+  _pid_coeffs[0] = Kpi;
+  _pid_coeffs[1] = Kii;
+  _pid_coeffs[2] = Kdi;
+  _output_limits[0] = output_lim_mini;
+  _output_limits[1] = output_lim_maxi;
 }
 
 
@@ -44,11 +50,11 @@ double PID::TotalError() {
     */
     double control = 0.0;
   	
-  	for (int i = 0; i < 3; i++){
+  	for (int i = 0; i < N; i++){
     	control -= _pid_coeffs[i] * _pid_errors[i];
     }
-  	control = (control < _output_limits[0]) ? _output_limits[0] ? control;
-  	control = (control > _output_limits[1]) ? _output_limits[1] ? control;
+  	control = (control < _output_limits[0]) ? _output_limits[0] : control;
+  	control = (control > _output_limits[1]) ? _output_limits[1] : control;
   
     return control;
 }

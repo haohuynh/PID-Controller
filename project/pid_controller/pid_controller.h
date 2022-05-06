@@ -14,15 +14,20 @@ public:
    * Create the PID class
    **/
 
+  	/*
+    * The number of Errors/Coefficients
+    */	
+  	const static int N = 3;
+  
     /*
     * Errors
     */
-	double _pid_errors[3];
+	double _pid_errors[N];
   
     /*
     * Coefficients
     */
-	double _pid_coeffs[3];
+	double _pid_coeffs[N];
   
     /*
     * Output limits
