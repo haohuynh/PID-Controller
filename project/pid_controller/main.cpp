@@ -229,9 +229,9 @@ int main ()
   PID pid_throttle = PID();
   
   // Using params calculated in the Parameter Optimization exercise
-  pid_steer.Init(.188, .003, 3.14, 1, -1);
+  pid_steer.Init(.15, .0003, 3.14, 1, -1);
   // At first, using the same Steering params. Then, adjusting them manually after running Carla for several times.
-  pid_throttle.Init(6, .003, .006, 1.2, -1.2);
+  pid_throttle.Init(6, 0.0, 0.0, 1.2, -1.2);
 
   h.onMessage([&pid_steer, &pid_throttle, &new_delta_time, &timer, &prev_timer, &i, &prev_timer](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode)
   {
@@ -310,18 +310,17 @@ int main ()
           double delta_y = 0.0;
           double angle = 0.0;
           
+          // Calculate the desired steer using the starting and ending points of the tracjectory
 		  if ((x_points.size() > 0) && (y_points.size() > 0)){
-           	delta_x = x_points[0];
-            delta_y = y_points[0];
+           	delta_x = x_points[x_points.size() - 1] - x_points[0];
+            delta_y = y_points[y_points.size() - 1] - y_points[0];
             
             if (delta_x != 0){
-          		angle = atan2(delta_y, delta_x) * 180 / M_PI;
+          		angle = atan2(delta_y, delta_x);
             }
-          }
-		  cout << yaw << endl;
-          cout << angle << endl;
-          error_steer = 0.9;
-
+          }          
+		  error_steer =  yaw - angle;
+          
           /**
           * (step 3): uncomment these lines
           **/
@@ -355,7 +354,13 @@ int main ()
           **/
           // modify the following line for step 2
           // The error is the speed difference between the actual speed and the desired speed.
-          error_throttle = abs(velocity) - abs(v_points.back());
+          double diff = velocity - v_points.back();
+          
+          if (abs(diff) > 1){
+          	diff = error_steer;  
+          }
+          
+          error_throttle = diff;
 
 
 
