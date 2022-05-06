@@ -306,10 +306,21 @@ int main ()
           * TODO (step 3): compute the steer error (error_steer) from the position and the desired trajectory
           **/
           // The error is the angle difference between the actual steer and the desired steer to reach the planned position.
-          cout << data["cte"] << endl;
-          cout << x_points.back() << " " << x_points.begin() << endl;
-          cout << y_points.back() << " " << y_points.begin() << endl;
-          error_steer = data["cte"];
+          double delta_x = 0.0;
+          double delta_y = 0.0;
+          double angle = 0.0;
+          
+		  if ((x_points.size() > 0) && (y_points.size() > 0)){
+           	delta_x = x_points[0];
+            delta_y = y_points[0];
+            
+            if (delta_x != 0){
+          		angle = atan2(delta_y, delta_x) * 180 / M_PI;
+            }
+          }
+		  cout << yaw << endl;
+          cout << angle << endl;
+          error_steer = 0.9;
 
           /**
           * (step 3): uncomment these lines
