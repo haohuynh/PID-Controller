@@ -39,7 +39,7 @@ void PID::UpdateError(double cte) {
     * Update PID errors based on cte.
     */
 	_pid_errors[2] = (cte - _pid_errors[0]) / _delta_time;
-    _pid_errors[1] += cte;
+    _pid_errors[1] += cte * _delta_time;
     _pid_errors[0] = cte;
 }
 
