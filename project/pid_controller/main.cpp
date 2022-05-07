@@ -228,10 +228,10 @@ int main ()
   PID pid_steer = PID();
   PID pid_throttle = PID();
   
-  // Using params calculated in the Parameter Optimization exercise
-  pid_steer.Init(.3, .1, .2, 1.2, -1.2);
-  // At first, using the same Steering params. Then, adjusting them manually after running Carla for several times.
-  pid_throttle.Init(.3, .2, .2, 1, -1);
+  // Using params calculated in the Parameter Optimization exercise, then adjusting after running the simulation multiple times
+  pid_steer.Init(.3, .05, .1, 1.2, -1.2);
+  // At first, using the same Steering params. Then, adjusting them manually after running Carla for many times.
+  pid_throttle.Init(.18, .03, .003, 1, -1);
 
   h.onMessage([&pid_steer, &pid_throttle, &new_delta_time, &timer, &prev_timer, &i, &prev_timer](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode)
   {
