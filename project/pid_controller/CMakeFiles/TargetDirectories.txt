@@ -1,3 +1,0 @@
-/home/workspace/PID-Controller/project/pid_controller/CMakeFiles/rebuild_cache.dir
-/home/workspace/PID-Controller/project/pid_controller/CMakeFiles/pid_controller.dir
-/home/workspace/PID-Controller/project/pid_controller/CMakeFiles/edit_cache.dir
