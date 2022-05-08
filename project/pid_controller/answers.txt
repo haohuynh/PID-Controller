@@ -1,7 +1,16 @@
 // Answer the following questions:
 
 // Add the plots to your report and explain them (describe what you see)
+See screenshot.
+
+
 // What is the effect of the PID according to the plots, how each part of the PID affects the control command?
+
+
 // How would you design a way to automatically tune the PID parameters?
+Algorithms, like the demos in Udacity, are required . Then, these algorithms must be connected to a simulation like Carla for a real-time evaluation and improvement.
+
 // PID controller is a model free controller, i.e. it does not use a model of the car. Could you explain the pros and cons of this type of controller?
+It can be used for any model of car. However, it is not optimized for a very specific design, and may lead to hidden issues later on.
+
 // (Optional) What would you do to improve the PID controller?
