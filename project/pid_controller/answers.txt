@@ -5,10 +5,12 @@ See screenshot folder.
 
 Error Steering is like the complement of Steering Output, and helps to balance this Ouput. It is good when these values are approximately proportional to each other. Otherwise, the car is behavioring unexpectedly.
 
-There is a huge between the Error Throttle and Throttle Ouput curves. 
+There is a huge gap between the Error Throttle and Throttle Ouput curves. Error Throttle values does affects the changes in the Throttle Ouput curve. The graph looks good for the before and after the iteration 100th.
 
 // What is the effect of the PID according to the plots, how each part of the PID affects the control command?
-
+P is an instantaneous cte, so it proportionally/directly affects the steering and throttle commands.
+I is an integration of ctes over an interval of time in order to compensate for biases if applicable. For this project, it is negligible for the effects on the commands.
+D is a rate of changes of ctes over a short period of time, and is resonsible for smoothing the outputs because of the oscillations caused by P component. For this project, it just slightly affects the throttle commands.
 
 // How would you design a way to automatically tune the PID parameters?
 Algorithms, like the demo in Udacity, are required . Then, the implementations of these algorithms must be evaluated and improved in real-time through a connection to a simulation like Carla.
